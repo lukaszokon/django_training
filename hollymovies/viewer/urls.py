@@ -1,7 +1,8 @@
 from django.urls import path
 
-from .views import hello
+from .views import hello, movies
 
 urlpatterns = [
-    path('hello/<s0>', hello)
+    path('hello/<s0>', hello),
+    path('', movies, name='index')
 ]
