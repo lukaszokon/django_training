@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 
-from .models import Movie
+from .models import Movie, Genre
 
 
 def hello(request, s0):
@@ -10,5 +10,8 @@ def hello(request, s0):
 
 
 def movies(request):
-    return render(request, template_name='movies.html', context={'movies': Movie.objects.all()})
-# Create your views here.
+    return render(request, template_name='movies.html', context={'movies': Movie.objects.all().order_by('-rating')})
+
+
+def genres(request):
+    return render(request, template_name='genres.html', context={'genres': Genre.objects.all()})

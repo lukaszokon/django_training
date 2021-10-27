@@ -5,7 +5,7 @@
     <ul>
         {% for movie in movies %}
         <li>
-            {{ movie.title }} ({{ movie.released.year }}) - {{ movie.genre.name }}
+            {{movie.rating}} {{ movie.title }} ({{ movie.released.year }}) - {{ movie.genre.name }}
         </li>
         {% endfor %}
     </ul>
