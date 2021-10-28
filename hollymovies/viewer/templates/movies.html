@@ -2,6 +2,10 @@
 
 {% block content %}
     <h1>All movies</h1>
+    <h4>sorting</h4>
+    <a class="btn btn-secondary" href="{% url 'index' %}?s=title">title</a>
+    <a class="btn btn-secondary" href="{% url 'index' %}?s=rating">rating</a>
+    <a class="btn btn-secondary" href="{% url 'index' %}?s=year">published year</a>
     <ul>
         {% for movie in movies %}
         <li>

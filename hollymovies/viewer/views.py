@@ -10,7 +10,17 @@ def hello(request, s0):
 
 
 def movies(request):
-    return render(request, template_name='movies.html', context={'movies': Movie.objects.all().order_by('-rating')})
+    sorting = request.GET.get('s', 'default')
+    if sorting == 'title':
+        movies_list = Movie.objects.all().order_by('title')
+    elif sorting == 'rating':
+        movies_list = Movie.objects.all().order_by('-rating')
+    elif sorting == 'year':
+        movies_list = Movie.objects.all().order_by('released')
+    else:
+        movies_list = Movie.objects.all()
+
+    return render(request, template_name='movies.html', context={'movies': movies_list})
 
 
 def genres(request):
