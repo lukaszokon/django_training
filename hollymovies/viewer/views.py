@@ -8,7 +8,7 @@ from .models import Movie, Genre
 
 
 class MovieCreateView(FormView):
-    template_name = 'form.html'
+    template_name = 'forms.html'
     form_class = MovieForm
 
 
