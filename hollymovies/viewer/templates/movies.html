@@ -9,7 +9,7 @@
     <ul>
         {% for movie in movies %}
         <li>
-            {{movie.rating}} {{ movie.title }} ({{ movie.released.year }}) - {{ movie.genre.name }}
+            {{movie.rating}} <a href="{% url 'movie-detail' movie.id %}">{{ movie.title }}</a> ({{ movie.released.year }}) - {{ movie.genre.name }}
         </li>
         {% endfor %}
     </ul>
