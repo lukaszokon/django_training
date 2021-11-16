@@ -1,6 +1,6 @@
-from django.forms import CharField, DateField, Form, IntegerField, ModelChoiceField, Textarea
+from django.forms import CharField, DateField, Form, IntegerField, ModelChoiceField, Textarea, ModelForm
 from django.core.exceptions import ValidationError
-from .models import Genre
+from .models import Genre, Movie
 from datetime import date
 import re
 
@@ -22,12 +22,15 @@ class PastMonthField(DateField):
         return date(year=result.year, month=result.month, day=1)
 
 
-class MovieForm(Form):
+class MovieForm(ModelForm):
+
+    class Meta:
+        model = Movie
+        fields = '__all__'
+
     title = CharField(max_length=128, validators=[capitalized_validator])
-    genre = ModelChoiceField(queryset=Genre.objects)
     rating = IntegerField(min_value=1, max_value=10)
     released = PastMonthField()
-    description = CharField(widget=Textarea, required=False)
 
     def clean_description(self):
         initial = self.cleaned_data['description']
