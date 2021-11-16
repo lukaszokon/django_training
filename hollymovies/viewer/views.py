@@ -22,6 +22,11 @@ class GenreDetailView(DetailView):
     template_name = 'genre_detail.html'
     context_object_name = 'genre'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['movies'] = Movie.objects.filter(genre=self.get_object())
+        return context
+
 
 class GenreUpdateView(UpdateView):
     template_name = 'forms.html'
