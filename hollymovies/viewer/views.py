@@ -2,7 +2,7 @@ from logging import getLogger
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import View
-from django.views.generic import TemplateView, ListView, DetailView, FormView, CreateView
+from django.views.generic import TemplateView, ListView, DetailView, FormView, CreateView, UpdateView, DeleteView
 
 from .forms import MovieForm
 from .models import Movie, Genre
@@ -15,6 +15,23 @@ class GenreCreateView(CreateView):
     fields = '__all__'
     template_name = 'forms.html'
     success_url = reverse_lazy('genres')
+
+
+class MovieUpdateView(UpdateView):
+    template_name = 'forms.html'
+    model = Movie
+    form_class = MovieForm
+    success_url = reverse_lazy('movies')
+
+    def form_invalid(self, form):
+        LOGGER.warning('User provided wrong data.')
+        return super().form_invalid(form)
+
+
+class MovieDeleteView(DeleteView):
+    template_name = 'movie_delete.html'
+    model = Movie
+    success_url = reverse_lazy('movies')
 
 
 class MovieCreateView(CreateView):
