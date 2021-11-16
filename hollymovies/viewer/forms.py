@@ -23,7 +23,6 @@ class PastMonthField(DateField):
 
 
 class MovieForm(ModelForm):
-
     class Meta:
         model = Movie
         fields = '__all__'
