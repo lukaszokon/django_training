@@ -9,7 +9,7 @@ Genres
     <ul>
         {% for genre in genres %}
         <li>
-            {{ genre.name }}
+            <a href="{% url 'genre-detail' genre.id %}">{{ genre.name }}</a>
         </li>
         {% endfor %}
     </ul>

@@ -17,6 +17,25 @@ class GenreCreateView(CreateView):
     success_url = reverse_lazy('genres')
 
 
+class GenreDetailView(DetailView):
+    model = Genre
+    template_name = 'genre_detail.html'
+    context_object_name = 'genre'
+
+
+class GenreUpdateView(UpdateView):
+    template_name = 'forms.html'
+    model = Genre
+    fields = '__all__'
+    success_url = reverse_lazy('genres')
+
+
+class GenreDeleteView(DeleteView):
+    template_name = 'genre_delete.html'
+    model = Genre
+    success_url = reverse_lazy('genres')
+
+
 class MovieUpdateView(UpdateView):
     template_name = 'forms.html'
     model = Movie
