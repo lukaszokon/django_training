@@ -42,7 +42,7 @@ class GenreDeleteView(DeleteView):
 
 
 class MovieUpdateView(UpdateView):
-    template_name = 'forms.html'
+    template_name = 'movie_form.html'
     model = Movie
     form_class = MovieForm
     success_url = reverse_lazy('movies')
@@ -59,7 +59,7 @@ class MovieDeleteView(DeleteView):
 
 
 class MovieCreateView(CreateView):
-    template_name = 'forms.html'
+    template_name = 'movie_form.html'
     form_class = MovieForm
     success_url = reverse_lazy('movies')
 
