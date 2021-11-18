@@ -4,16 +4,11 @@ from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import TemplateView, ListView, DetailView, FormView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.views import LoginView
 
 from .forms import MovieForm
 from .models import Movie, Genre
 
 LOGGER = getLogger()
-
-
-class CustomLoginView(LoginView):
-    template_name = 'forms.html'
 
 
 class GenreCreateView(LoginRequiredMixin, CreateView):
