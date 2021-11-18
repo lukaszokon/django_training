@@ -1,4 +1,4 @@
-from django.forms import CharField, DateField, Form, IntegerField, ModelChoiceField, Textarea, ModelForm
+from django.forms import CharField, DateField, Form, IntegerField, ModelChoiceField, Textarea, ModelForm, FloatField
 from django.core.exceptions import ValidationError
 from .models import Genre, Movie
 from datetime import date
@@ -26,9 +26,10 @@ class MovieForm(ModelForm):
     class Meta:
         model = Movie
         fields = '__all__'
+        exclude = ['slug']
 
     title = CharField(max_length=128, validators=[capitalized_validator])
-    rating = IntegerField(min_value=1, max_value=10)
+    rating = FloatField(min_value=1, max_value=10)
     released = PastMonthField()
 
     def __init__(self, *args, **kwargs):

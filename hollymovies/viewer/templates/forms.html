@@ -7,7 +7,7 @@ New movie
 {% block content %}
     <form method="post">
         {% csrf_token %}
-        <table>{{ form }}</table>
+        {{ form.as_table }}
         <input type="submit" value="Submit" class="btn btn-primary">
     </form>
 {% endblock %}

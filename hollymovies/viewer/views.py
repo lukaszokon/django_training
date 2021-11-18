@@ -3,6 +3,8 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import TemplateView, ListView, DetailView, FormView, CreateView, UpdateView, DeleteView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.views import LoginView
 
 from .forms import MovieForm
 from .models import Movie, Genre
@@ -10,7 +12,11 @@ from .models import Movie, Genre
 LOGGER = getLogger()
 
 
-class GenreCreateView(CreateView):
+class CustomLoginView(LoginView):
+    template_name = 'forms.html'
+
+
+class GenreCreateView(LoginRequiredMixin, CreateView):
     model = Genre
     fields = '__all__'
     template_name = 'forms.html'
@@ -28,22 +34,27 @@ class GenreDetailView(DetailView):
         return context
 
 
-class GenreUpdateView(UpdateView):
+class GenreUpdateView(LoginRequiredMixin, UpdateView):
     template_name = 'forms.html'
     model = Genre
     fields = '__all__'
     success_url = reverse_lazy('genres')
 
 
-class GenreDeleteView(DeleteView):
+class GenreDeleteView(LoginRequiredMixin, DeleteView):
     template_name = 'genre_delete.html'
     model = Genre
     success_url = reverse_lazy('genres')
 
 
-class MovieUpdateView(UpdateView):
-    template_name = 'movie_form.html'
+class MovieDeleteView(LoginRequiredMixin, DeleteView):
+    template_name = 'movie_delete.html'
     model = Movie
+    success_url = reverse_lazy('movies')
+
+
+class MovieCreateView(LoginRequiredMixin, CreateView):
+    template_name = 'movie_form.html'
     form_class = MovieForm
     success_url = reverse_lazy('movies')
 
@@ -52,14 +63,9 @@ class MovieUpdateView(UpdateView):
         return super().form_invalid(form)
 
 
-class MovieDeleteView(DeleteView):
-    template_name = 'movie_delete.html'
-    model = Movie
-    success_url = reverse_lazy('movies')
-
-
-class MovieCreateView(CreateView):
+class MovieUpdateView(LoginRequiredMixin, UpdateView):
     template_name = 'movie_form.html'
+    model = Movie
     form_class = MovieForm
     success_url = reverse_lazy('movies')
 

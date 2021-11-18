@@ -1,14 +1,17 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h4>{{ genre.name }} </h4>
+<h4>{{ genre.name }}</h4>
 <a class="btn btn-primary" href="{% url 'genre-update' genre.id %}">Update genre</a>
 <a class="btn btn-danger" href="{% url 'genre-delete' genre.id %}">Delete genre</a>
+<br/><br/>
 <ul>
     {% for movie in movies %}
     <li>
         {{movie.rating}} <a href="{% url 'movie-detail' movie.id %}">{{ movie.title }}</a> ({{ movie.released.year }})
     </li>
+    {% empty %}
+    <p>No movies in genre.</p>
     {% endfor %}
 </ul>
 {% endblock %}
