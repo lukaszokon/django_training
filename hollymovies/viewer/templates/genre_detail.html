@@ -2,8 +2,12 @@
 
 {% block content %}
 <h4>{{ genre.name }}</h4>
+{% if perms.viewer.change_genre %}
 <a class="btn btn-primary" href="{% url 'genre-update' genre.id %}">Update genre</a>
+{% endif %}
+{% if perms.viewer.delete_genre %}
 <a class="btn btn-danger" href="{% url 'genre-delete' genre.id %}">Delete genre</a>
+{% endif %}
 <br/><br/>
 <ul>
     {% for movie in movies %}

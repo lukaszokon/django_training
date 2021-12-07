@@ -1,10 +1,9 @@
 from django.urls import path
 
-from .views import hello, movies, genres, MovieView, MovieDetailView, MovieCreateView, GenreCreateView, MovieUpdateView, \
+from .views import movies, genres, MovieView, MovieDetailView, MovieCreateView, GenreCreateView, MovieUpdateView, \
     MovieDeleteView, GenreDeleteView, GenreUpdateView, GenreDetailView
 
 urlpatterns = [
-    path('hello/<s0>', hello),
     path('genres', genres, name='genres'),
     path('genres/new', GenreCreateView.as_view(), name='genre-create'),
     path('genres/<int:pk>', GenreDetailView.as_view(), name='genre-detail'),

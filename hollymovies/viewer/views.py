@@ -16,7 +16,7 @@ class StaffRequiredMixin(UserPassesTestMixin):
         return self.request.user.is_staff
 
 
-class GenreCreateView(StaffRequiredMixin, PermissionRequiredMixin, CreateView):
+class GenreCreateView(PermissionRequiredMixin, CreateView):
     model = Genre
     fields = '__all__'
     template_name = 'forms.html'
@@ -24,10 +24,11 @@ class GenreCreateView(StaffRequiredMixin, PermissionRequiredMixin, CreateView):
     permission_required = 'viewer.add_genre'
 
 
-class GenreDetailView(DetailView):
+class GenreDetailView(PermissionRequiredMixin, DetailView):
     model = Genre
     template_name = 'genre_detail.html'
     context_object_name = 'genre'
+    permission_required = 'viewer.view_genre'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -35,17 +36,19 @@ class GenreDetailView(DetailView):
         return context
 
 
-class GenreUpdateView(LoginRequiredMixin, UpdateView):
+class GenreUpdateView(PermissionRequiredMixin, UpdateView):
     template_name = 'forms.html'
     model = Genre
     fields = '__all__'
     success_url = reverse_lazy('genres')
+    permission_required = 'viewer.change_genre'
 
 
-class GenreDeleteView(LoginRequiredMixin, DeleteView):
+class GenreDeleteView(PermissionRequiredMixin, DeleteView):
     template_name = 'genre_delete.html'
     model = Genre
     success_url = reverse_lazy('genres')
+    permission_required = 'viewer.delete_genre'
 
 
 class MovieDeleteView(PermissionRequiredMixin, DeleteView):
@@ -85,15 +88,11 @@ class MovieDetailView(PermissionRequiredMixin, DetailView):
     permission_required = 'viewer.view_movie'
 
 
-class MovieView(ListView):
+class MovieView(PermissionRequiredMixin, ListView):
     template_name = 'movies.html'
     model = Movie
     context_object_name = 'movies'
-
-
-def hello(request, s0):
-    s1 = request.GET.get('s1', '')
-    return render(request, template_name='hello.html', context={'adjectives': [s0, s1, 'beautiful', 'wonderful']})
+    permission_required = 'viewer.view_movie'
 
 
 def movies(request):

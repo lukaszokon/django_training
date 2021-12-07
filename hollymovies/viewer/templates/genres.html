@@ -13,5 +13,7 @@ Genres
         </li>
         {% endfor %}
     </ul>
+    {% if perms.viewer.add_genre %}
     <a class="btn btn-primary" href="{% url 'genre-create' %}">New genre</a>
+    {% endif %}
 {% endblock %}

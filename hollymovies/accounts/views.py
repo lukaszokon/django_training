@@ -2,15 +2,18 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, ListView
 from django.contrib.auth.views import LoginView, PasswordChangeView
+from django.contrib.auth.mixins import PermissionRequiredMixin
 
 from .forms import CustomPasswordChangeForm, SignUpForm
 from .models import Profile
 
 
-class UserListView(ListView):
+class UserListView(PermissionRequiredMixin, ListView):
     template_name = 'users.html'
     model = Profile
     context_object_name = 'profiles'
+    permission_required = 'accounts.add_profile'
+
 
 class SignUpView(CreateView):
     template_name = 'forms.html'
