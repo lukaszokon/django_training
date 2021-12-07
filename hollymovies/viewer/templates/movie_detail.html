@@ -8,6 +8,10 @@
 <h3>Genre: {{movie.genre.name}}</h3>
 <p>Slug: {{ movie.slug }}</p>
 <p>Description: {{ movie.description }}</p>
+{% if perms.viewer.change_movie %}
 <a class="btn btn-primary" href="{% url 'movie-update' movie.id %}">Update movie</a>
+{% endif %}
+{% if perms.viewer.delete_movie %}
 <a class="btn btn-danger" href="{% url 'movie-delete' movie.id %}">Delete movie</a>
+{% endif %}
 {% endblock %}

@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}
+Users
+{% endblock %}
+
+{% block content %}
+    <h1>All users</h1>
+    <ul>
+        {% for profile in profiles %}
+        <li>
+            {{ profile.user.username }} {{ profile.user.first_name }} {{ profile.user.is_active }}
+        </li>
+        {% endfor %}
+    </ul>
+{% if perms.viewer.add_movie %}
+    <a class="btn btn-primary" href="{% url 'movie-create' %}">New movie</a>
+{% endif %}
+{% endblock %}

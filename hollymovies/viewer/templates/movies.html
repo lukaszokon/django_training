@@ -13,9 +13,15 @@ Movies
     <ul>
         {% for movie in movies %}
         <li>
-            {{movie.rating|floatformat:2}} <a href="{% url 'movie-detail' movie.id %}">{{ movie.title }}</a> ({{ movie.released.year }}) - {{ movie.genre.name }}
+            {% if perms.viewer.view_movie %}
+                {{movie.rating|floatformat:2}} <a href="{% url 'movie-detail' movie.id %}">{{ movie.title }}</a> ({{ movie.released.year }}) - {{ movie.genre.name }}
+            {% else %}
+                {{movie.rating|floatformat:2}} {{ movie.title }} ({{ movie.released.year }}) - {{ movie.genre.name }}
+            {% endif %}
         </li>
         {% endfor %}
     </ul>
+{% if perms.viewer.add_movie %}
     <a class="btn btn-primary" href="{% url 'movie-create' %}">New movie</a>
+{% endif %}
 {% endblock %}

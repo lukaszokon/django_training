@@ -40,6 +40,11 @@
                 <a class="nav-item nav-link active" href="{% url 'movies' %}">
                     Movies
                 </a>
+                {% if user.is_staff %}
+                <a class="nav-item nav-link active" href="{% url 'user-list' %}">
+                    Users
+                </a>
+                {% endif %}
             </div>
         </div>
     </div>
