@@ -39,7 +39,7 @@ Users
             {% endif %}
         </td>
         <td>{% if perms.accounts.change_profile %}
-            <a class="btn btn-warning" href="{% url 'user-change-password' profile.user.pk %}">Change password</a>
+            <a class="btn btn-warning" href="{% url 'user-change-password' profile.pk %}">Change password</a>
             {% endif %}
         </td>
     </tr>

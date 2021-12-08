@@ -1,6 +1,6 @@
 from django.shortcuts import render, HttpResponseRedirect
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, ListView, DeleteView
+from django.views.generic import CreateView, ListView, DeleteView, FormView
 from django.contrib.auth.views import LoginView, PasswordChangeView
 from django.contrib.auth.mixins import PermissionRequiredMixin
 
@@ -32,11 +32,17 @@ class CustomLoginView(LoginView):
     template_name = 'forms.html'
 
 
-class CustomAdminPasswordChangeView(PermissionRequiredMixin, PasswordChangeView):
+class CustomAdminPasswordChangeView(PermissionRequiredMixin,
+                                    PasswordChangeView):
     template_name = 'admin_password_change.html'
     success_url = reverse_lazy('user-list')
     form_class = CustomAdminPasswordChangeForm
     permission_required = 'accounts.change_profile'
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['user'] = Profile.objects.get(pk=self.kwargs['pk']).user
+        return kwargs
 
 
 class CustomPasswordChangeView(PasswordChangeView):
