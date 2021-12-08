@@ -1,5 +1,5 @@
 from django.db.transaction import atomic
-from django.contrib.auth.forms import PasswordChangeForm, UserCreationForm
+from django.contrib.auth.forms import PasswordChangeForm, UserCreationForm, UserChangeForm
 from django.forms import CharField, Textarea
 
 from .models import Profile

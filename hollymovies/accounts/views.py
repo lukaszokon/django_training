@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, ListView
 from django.contrib.auth.views import LoginView, PasswordChangeView
@@ -29,3 +29,13 @@ class CustomPasswordChangeView(PasswordChangeView):
     template_name = 'password_change.html'
     success_url = reverse_lazy('movies')
     form_class = CustomPasswordChangeForm
+
+
+def change_user_active(request, pk):
+    profile = Profile.objects.get(pk=pk)
+    if profile.user.is_active:
+        profile.user.is_active = False
+    else:
+        profile.user.is_active = True
+    profile.user.save()
+    return HttpResponseRedirect(reverse_lazy('user-list'))
