@@ -1,10 +1,10 @@
 from django.shortcuts import render, HttpResponseRedirect
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, ListView
+from django.views.generic import CreateView, ListView, DeleteView
 from django.contrib.auth.views import LoginView, PasswordChangeView
 from django.contrib.auth.mixins import PermissionRequiredMixin
 
-from .forms import CustomPasswordChangeForm, SignUpForm
+from .forms import CustomPasswordChangeForm, SignUpForm, CustomAdminPasswordChangeForm
 from .models import Profile
 
 
@@ -15,6 +15,13 @@ class UserListView(PermissionRequiredMixin, ListView):
     permission_required = 'accounts.add_profile'
 
 
+class ProfileDeleteView(PermissionRequiredMixin, DeleteView):
+    template_name = 'profile_delete.html'
+    model = Profile
+    success_url = reverse_lazy('user-list')
+    permission_required = 'accounts.delete_profile'
+
+
 class SignUpView(CreateView):
     template_name = 'forms.html'
     form_class = SignUpForm
@@ -23,6 +30,13 @@ class SignUpView(CreateView):
 
 class CustomLoginView(LoginView):
     template_name = 'forms.html'
+
+
+class CustomAdminPasswordChangeView(PermissionRequiredMixin, PasswordChangeView):
+    template_name = 'admin_password_change.html'
+    success_url = reverse_lazy('user-list')
+    form_class = CustomAdminPasswordChangeForm
+    permission_required = 'accounts.change_profile'
 
 
 class CustomPasswordChangeView(PasswordChangeView):

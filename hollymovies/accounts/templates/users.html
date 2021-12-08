@@ -35,11 +35,11 @@ Users
             {% endif %}
         </td>
         <td>{% if perms.accounts.delete_profile %}
-            <a class="btn btn-danger" href="{% url 'sign-up' %}">Delete</a>
+            <a class="btn btn-danger" href="{% url 'user-delete' profile.pk %}">Delete</a>
             {% endif %}
         </td>
         <td>{% if perms.accounts.change_profile %}
-            <a class="btn btn-warning" href="{% url 'sign-up' %}">Change password</a>
+            <a class="btn btn-warning" href="{% url 'user-change-password' profile.user.pk %}">Change password</a>
             {% endif %}
         </td>
     </tr>

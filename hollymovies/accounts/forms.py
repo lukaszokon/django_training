@@ -1,8 +1,15 @@
 from django.db.transaction import atomic
-from django.contrib.auth.forms import PasswordChangeForm, UserCreationForm, UserChangeForm
+from django.contrib.auth.forms import PasswordChangeForm, UserCreationForm, AdminPasswordChangeForm
 from django.forms import CharField, Textarea
 
 from .models import Profile
+
+
+class CustomAdminPasswordChangeForm(AdminPasswordChangeForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for visible in self.visible_fields():
+            visible.field.widget.attrs['class'] = 'form-control'
 
 
 class CustomPasswordChangeForm(PasswordChangeForm):
