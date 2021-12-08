@@ -31,7 +31,7 @@ Users
             {% endif %}
         </td>
         <td>{% if perms.accounts.change_profile %}
-            <a class="btn btn-primary" href="{% url 'sign-up' %}">Update</a>
+            <a class="btn btn-primary" href="{% url 'change-profile' profile.pk %}">Update</a>
             {% endif %}
         </td>
         <td>{% if perms.accounts.delete_profile %}
