@@ -2,11 +2,28 @@ import django.contrib.auth.models
 from django.shortcuts import render, HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, ListView, DeleteView, UpdateView
-from django.contrib.auth.views import LoginView, PasswordChangeView
+from django.contrib.auth.views import LoginView, PasswordChangeView, PasswordResetView, PasswordResetDoneView, \
+    PasswordResetConfirmView, PasswordResetCompleteView
 from django.contrib.auth.mixins import PermissionRequiredMixin
 
 from .forms import CustomPasswordChangeForm, SignUpForm, CustomAdminPasswordChangeForm, CustomUserChangeForm
 from .models import Profile
+
+
+class CustomPasswordResetCompleteView(PasswordResetCompleteView):
+    template_name = 'password_reset_complete.html'
+
+
+class CustomPasswordResetConfirmView(PasswordResetConfirmView):
+    template_name = 'password_reset_confirm.html'
+
+
+class CustomPasswordResetView(PasswordResetView):
+    template_name = 'password_reset_form.html'
+
+
+class CustomPasswordResetDoneView(PasswordResetDoneView):
+    template_name = 'password_reset_done.html'
 
 
 class UserListView(PermissionRequiredMixin, ListView):
